@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shields for {{ boss.name }}</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #d4d4d4;
+            font-family: Georgia, serif;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            color: #e8e8e8;
+            border-bottom: 1px solid #3a3a3a;
+            padding-bottom: 10px;
+        }
+
+        a {
+            color: #8ab4f8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px 12px;
+            margin: 4px 0;
+            background-color: #2a2a2a;
+            border-radius: 4px;
+            border-left: 3px solid #3a3a3a;
+        }
+
+        li strong {
+            color: #f0c060;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shields ranked by resistance for {{ boss.name }}</h1>
+    <a href="/">Back to boss selection</a>
+
+    <ul>
+        {% for shield in shields %}
+            <li>
+                {% if shield[0] == featured.name %}
+                    <strong>{{ shield[0] }} — {{ shield[1]}}</strong>
+                {% else %}
+                        {{ shield[0] }} — {{ shield[1]}}
+                {% endif %}
+</li>
+{% endfor %}
+    </ul>
+</body>
+</html>

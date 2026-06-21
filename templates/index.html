@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Boss Selector</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #d4d4d4;
+            font-family: Georgia, serif;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            color: #e8e8e8;
+            border-bottom: 1px solid #3a3a3a;
+            padding-bottom: 10px;
+        }
+
+        a {
+            color: #8ab4f8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px 12px;
+            margin: 4px 0;
+            background-color: #2a2a2a;
+            border-radius: 4px;
+            border-left: 3px solid #3a3a3a;
+        }
+
+        li strong {
+            color: #f0c060;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" action="/shields">
+        <label for="boss">Select a boss:</label>
+        <select name="boss_id" id="boss">
+            {% for boss in bosses %}
+            <option value="{{ boss }}">{{ boss }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Find shields</button>
+    </form>
+</body>
+</html>
