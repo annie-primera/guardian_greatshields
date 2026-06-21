@@ -1,6 +1,5 @@
 from models import Boss, DamageType
 
-
 ALL_BOSSES = {
     "Gladius, Beast of Night": Boss(
         name="Gladius, Beast of Night",
