@@ -18,7 +18,8 @@ def rank_shields(boss):
     shield_resistances = []
     for key, value in ALL_SHIELDS.items():
         shield_resistances.append((value.name, getattr(value, boss.damage_type.name)))
-    return shield_resistances
+    sorted_shield_resistances = sorted(shield_resistances, key=lambda x: x[1], reverse=True)
+    return sorted_shield_resistances
 
 
 @app.route("/")
