@@ -17,6 +17,7 @@ class Shield(BaseModel):
     fire_damage: int
     lightning_damage: int
     holy_damage: int
+    physical_damage: int = 100
     guard_boost: int
 
 
