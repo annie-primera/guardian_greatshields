@@ -11,6 +11,17 @@ class DamageType(Enum):
     physical_damage = "physical damage"
 
 
+class StatusEffect(Enum):
+    poison = "poison"
+    sleep = "sleep"
+    frost = "frost"
+    bleed = "bleed"
+    madness = "madness"
+    scarlet_rot = "scarlet rot"
+    none = "none"
+    all_of_them = "ALL OF THEM"
+
+
 class Shield(BaseModel):
     name: str
     magic_damage: int
@@ -24,4 +35,12 @@ class Shield(BaseModel):
 class Boss(BaseModel):
     name: str
     damage_type: DamageType
-    weak_against: DamageType | None
+    status_effect: StatusEffect
+    weak_against: StatusEffect | DamageType
+    fire_negation: int
+    magic_negation: int
+    lightning_negation: int
+    holy_negation: int
+    strike_resistance: int
+    slash_resistance: int
+    pierce_resistance: int

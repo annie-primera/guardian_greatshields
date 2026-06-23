@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Shields for {{ boss.name }}</title>
+    <title>Build guide for {{ boss.name }}</title>
     <style>
         body {
             background-color: #1a1a1a;
             color: #d4d4d4;
             font-family: Georgia, serif;
-            max-width: 600px;
+            max-width: 1100px;
             margin: 40px auto;
+            padding: 0 20px;
         }
 
         h1 {
             color: #e8e8e8;
             border-bottom: 1px solid #3a3a3a;
             padding-bottom: 10px;
+            margin-bottom: 24px;
         }
 
         a {
@@ -27,9 +29,79 @@
             text-decoration: underline;
         }
 
+        .panels {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .panel {
+            background-color: #222222;
+            border: 1px solid #3a3a3a;
+            border-radius: 6px;
+            padding: 20px;
+        }
+
+        .panel-boss {
+            flex: 0 0 300px;
+        }
+
+        .panel-shields {
+            flex: 1;
+        }
+
+        .panel h2 {
+            color: #e8e8e8;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin: 0 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #3a3a3a;
+        }
+
+        .boss-name {
+            color: #f0c060;
+            font-size: 1.1rem;
+            margin: 0 0 6px 0;
+        }
+
+        .boss-meta {
+            font-size: 0.85rem;
+            color: #888;
+            margin: 0 0 16px 0;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid #2a2a2a;
+            font-size: 0.9rem;
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: #999;
+        }
+
+        .stat-value {
+            font-variant-numeric: tabular-nums;
+            font-weight: bold;
+        }
+
+        .stat-value.negative { color: #6fcf6f; }
+        .stat-value.positive { color: #e06060; }
+        .stat-value.neutral  { color: #d4d4d4; }
+
         ul {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
 
         li {
@@ -46,19 +118,86 @@
     </style>
 </head>
 <body>
-    <h1>Shields ranked by resistance for {{ boss.name }}</h1>
+    <h1>Build guide for {{ boss.name }}</h1>
     <a href="/">Back to boss selection</a>
 
-    <ul>
-        {% for shield in shields %}
-            <li>
-                {% if shield[0] == featured.name %}
-                    <strong>{{ shield[0] }} — {{ shield[1]}}</strong>
-                {% else %}
-                        {{ shield[0] }} — {{ shield[1]}}
-                {% endif %}
-</li>
-{% endfor %}
-    </ul>
+    <div class="panels" style="margin-top: 24px;">
+
+        <div class="panel panel-boss">
+            <h2>Boss</h2>
+            <p class="boss-name">{{ boss.name }}</p>
+            <div class="stat-row">
+                <span class="stat-label">Damage type</span>
+                <span class="stat-value neutral">{{ boss.damage_type.value }}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Status effect</span>
+                <span class="stat-value neutral">{{ boss.status_effect.value }}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Weak against</span>
+                <span class="stat-value neutral">{{ boss.weak_against.value }}</span>
+            </div>
+
+            <div class="stat-row">
+                <span class="stat-label">Fire negation</span>
+                <span class="stat-value {% if boss.fire_negation < 0 %}negative{% elif boss.fire_negation > 0 %}positive{% else %}neutral{% endif %}">
+                    {{ boss.fire_negation }}
+                </span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Magic negation</span>
+                <span class="stat-value {% if boss.magic_negation < 0 %}negative{% elif boss.magic_negation > 0 %}positive{% else %}neutral{% endif %}">
+                    {{ boss.magic_negation }}
+                </span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Lightning negation</span>
+                <span class="stat-value {% if boss.lightning_negation < 0 %}negative{% elif boss.lightning_negation > 0 %}positive{% else %}neutral{% endif %}">
+                    {{ boss.lightning_negation }}
+                </span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Holy negation</span>
+                <span class="stat-value {% if boss.holy_negation < 0 %}negative{% elif boss.holy_negation > 0 %}positive{% else %}neutral{% endif %}">
+                    {{ boss.holy_negation }}
+                </span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Strike resistance</span>
+                <span class="stat-value {% if boss.strike_resistance < 0 %}negative{% elif boss.strike_resistance > 0 %}positive{% else %}neutral{% endif %}">
+                    {{ boss.strike_resistance }}
+                </span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Slash resistance</span>
+                <span class="stat-value {% if boss.slash_resistance < 0 %}negative{% elif boss.slash_resistance > 0 %}positive{% else %}neutral{% endif %}">
+                    {{ boss.slash_resistance }}
+                </span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Pierce resistance</span>
+                <span class="stat-value {% if boss.pierce_resistance < 0 %}negative{% elif boss.pierce_resistance > 0 %}positive{% else %}neutral{% endif %}">
+                    {{ boss.pierce_resistance }}
+                </span>
+            </div>
+        </div>
+
+        <div class="panel panel-shields">
+            <h2>Shields</h2>
+            <ul>
+                {% for shield in shields %}
+                <li>
+                    {% if shield[0] == featured.name %}
+                        <strong>{{ shield[0] }} — {{ shield[1] }}</strong>
+                    {% else %}
+                        {{ shield[0] }} — {{ shield[1] }}
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
 </body>
 </html>
